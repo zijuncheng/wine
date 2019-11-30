@@ -1,8 +1,8 @@
 # Wine Recommendation Based on Flavors
 
-What's the best substitute for a particular bottle? This is perhaps one of the most asked questions when people do wine shopping. While it is true that a 2009 red-blend from Margaux could very likely be a true gem, but it certainly has a price to match. Many people might sought a more affordable alternative: perhaps a vintage wine from a later year in the same chateau, a red-blend from the same year but a less prestiged area such as Pays D'oc, or a bottle from a completely different continent that has a similar taste. This exploratory project provides a solution where an appropriate substitute is determined by multiple factors: appellations, grape variety, country and most importantly, its taste.
+What's the best substitute for a particular bottle? This is perhaps one of the most asked questions when people are having trouble wine shopping. While it is true that a 2009 red-blend from Margaux could very likely be a true gem, but it certainly has a price to match. Many people might sought a more affordable alternative: perhaps a vintage wine from a later year in the same chateau (vineyard), a red-blend from the same year but a less renowned area such as Pays D'oc, or a bottle from a completely different region that has a similar taste. This exploratory project provides a solution where an appropriate substitute is determined by multiple factors: appellations, grape varieties, production countries and most importantly, its tastes.
 
-Consider the following vineyard:
+As an example, consider the following vineyard:
 
 <img src="pics/red_origin.jpg" align="center" style="height: 200px"/> 
 
@@ -17,15 +17,15 @@ The closest substitute of their 2012 productions --'Elyse 2012 Morisoli Vineyard
 This document include the following:
 
   - [Installation](#installation)
-  - [Data Description](#Data-Description)
-  - [Methodology](#Methodology)
-  - [Findings](#Findings)
-  - [Further Studies](#Further-Studies)
+  - [Data Description](#data-description)
+  - [Methodology](#methodology)
+  - [Findings](#findings)
+  - [Further Studies](#further-studies)
   
 ### Installation
 ----------------------------------
 ##### Source Data 
-  - A self-made note based on [Wine Folly](wine_folly)
+  - A self-made note based on the book [Wine Folly: The Essential Guide to Wine](wine_folly)
   - [Kaggle Wine Data](kaggle)
   
 ##### Download Intermediate Data to run the notebooks
@@ -45,9 +45,9 @@ Please refer to the links above if you run into any problems.
 ----------------------------------
 
 ##### Notes from Wine Folly (NWF)
-  The following factors are summarized in a spreadsheet based on the book Wine Folly Essential Guide:
-  - Wine variety
-  - Places where it's produced/grown
+  The following factors are summarized in a spreadsheet based on the book Wine Folly: The Essential Guide to Wine:
+  - Wine varieties
+  - Places where the wine or the grape is produced/grown today
   - Properties (e.g., levels of dryness)
   - Possible Flavor Profiles 
    
@@ -56,7 +56,7 @@ Please refer to the links above if you run into any problems.
    
 #####  Online Review (OR)
    This data is from Kaggle and is originally a scrapped source from [WineEnthusiast](winewag).
-   The columns in use for this projects are "title","variety", "country" and "description". The last column "description" is a short paragraph of review by a certified sommelier.
+   The columns used are "title","variety", "country" and "description". The last column "description" is a short paragraph of a review provided by a certified sommelier.
    
 
 ### Methodology
@@ -68,10 +68,10 @@ Please refer to the links above if you run into any problems.
 ##### GloVe Model
 - The project relies heavily on the GloVe Model where a vector is assigned to a word based on its context (or 'corpus')
 - 3 layers of information are added to the corpus to enrich its understanding of a particular word of flavor: NWF, Wiki and OR (details have been mentioned above). 
-  - NWF sets the foundation of the model's wine knowledge so that it acknowledges the boundaries of different varieties: for example, Chardonnay and Merlot can never be similar due to their distinct flavors and due to the inherent difference of the grapes. It also sets forward some possible linkage between some categories of wines: for instance, Cabernet Sauvignon and Bordeaux Blend, despite of the different varieties, could be similar due to their widely overlapping flavors. 
+  - NWF sets the foundation of the model's wine knowledge so that it acknowledges the boundaries of different varieties: for example, Chardonnay and Merlot can never be similar due to their distinct flavors and due to the inherent difference of the grapes. However, NWF also sets forward some possible linkage between some categories of wines: for instance, Cabernet Sauvignon and Bordeaux Blend, despite of their different wine varieties, could be similar due to their widely overlapping flavors. 
   - Wikipedia page on the flavors helps to group similar tastes closer in the vector space. For example, after learning from Wiki, peach, apricot and nectarine became close neigbors.
   
-  Here's some results after learning from NWF and Wiki:
+  Here's some results (mainly for flavors) after learning from NWF and Wiki:
   
   <img src="pics/wine_flavor1.png" align="center" style="height: 250px"/>
   
@@ -81,20 +81,20 @@ Please refer to the links above if you run into any problems.
   
   -OR provides specific information on a particular bottle. This is the main subject to learn from in this project. NWF and Wiki add value to this third stage of unsupervised learning.
 
-##### Distance Function
+##### Distance Functions
 - Both Euclidean and Cosine Distance are used. They both provide reasonable results. However, it is worth noting that when less information are presented, cosine delivers a more consistent answer.
 
 ### Findings
 ----------------------------------
 
-The algorithm works quite well in general. For the examples tested, the algorithm is always able to find a substitute of either the same kind of the wine or a possible kind that can have similar flavors (e.g, Zinfindel and Cabernet Sauvignon in the beginning of this document). The substitute is often from the same region and usually from the same year. The flavors are also similar, as expected.
+The algorithm works quite well in general. For the examples tested, the algorithm is always able to find a substitute of either the same kind of the wine or a possible different kind that can have similar flavors based on the review (e.g, Zinfindel and Cabernet Sauvignon in the beginning example of this document). The substitute is often from the same region and usually from the same year. The flavors based on review are also similar in that there are many overlapping key words, as expected.
 
 
 ### Further Studies
 ----------------------------------
 - A better criteria to judge the effectiveness of  the algorithm (maybe an A/B testing)
 - A more recent dataset by running the scrapper
-- The details of different Vineyard from Wikipedia might improve the learning process.
+- The details of different vineyard from Wikipedia might improve the learning process.
 
 [//]: # 
 
