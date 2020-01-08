@@ -1,12 +1,12 @@
 # Wine Recommendation Based on Flavors
 
-What's the best substitute for a particular bottle? This is perhaps one of the most asked questions when people are having trouble wine shopping. While it is true that a 2009 red-blend from Margaux could very likely be a true gem, but it certainly has a price to match. Many people might sought a more affordable alternative: perhaps a vintage wine from a later year in the same chateau (vineyard), a red-blend from the same year but a less renowned area such as Pays D'oc, or a bottle from a completely different region that has a similar taste. This exploratory project provides a solution where an appropriate substitute is determined by multiple factors: appellations, grape varieties, production countries and most importantly, its tastes.
+What's the best substitute for a particular bottle? This is perhaps one of the most frequently asked questions when people are shopping for wine. While it is true that a 2009 red-blend from Margaux could very likely satisfy you, but it certainly has a price to match. Many people might sought a more affordable alternative: perhaps a vintage wine from a later year in the same chateau (vineyard), a red-blend from the same year but a less renowned area such as Pays D'oc, or a bottle from a completely different region with a similar taste. This exploratory project provides a way to determine a substitute by considering multiple factors: appellations, grape varieties, production countries and most importantly, its tastes by reviews.
 
-As an example, consider the following vineyard:
+As an example, consider the following vineyard Morisoli from Napa Valley:
 
 <img src="pics/red_origin.jpg" align="center" style="height: 200px"/> 
 
-The closest substitute of their 2012 productions --'Elyse 2012 Morisoli Vineyard Zinfandel (Rutherford)'.-- is the following according to the algorithm:
+The closest substitute of their 2012 production --'Elyse 2012 Morisoli Vineyard Zinfandel (Rutherford)'.-- is the following according to the algorithm:
 
 | <img src="pics/red1.jpg" align="center" style="height: 200px"/>        | <img src="pics/red2.jpg" align="center" style="height: 200px"/>            |<img src="pics/red3.jpg" align="center" style="height: 200px"/> |<img src="pics/red4.jpg" align="center" style="height: 200px"/> |
 | --- |---| --- | --- |
@@ -67,9 +67,9 @@ Please refer to the links above if you run into any problems.
 
 ##### GloVe Model
 - The project relies heavily on the GloVe Model where a vector is assigned to a word based on its context (or 'corpus')
-- 3 layers of information are added to the corpus to enrich its understanding of a particular word of flavor: NWF, Wiki and OR (details have been mentioned above). 
-  - NWF sets the foundation of the model's wine knowledge so that it acknowledges the boundaries of different varieties: for example, Chardonnay and Merlot can never be similar due to their distinct flavors and due to the inherent difference of the grapes. However, NWF also sets forward some possible linkage between some categories of wines: for instance, Cabernet Sauvignon and Bordeaux Blend, despite of their different wine varieties, could be similar due to their widely overlapping flavors. 
-  - Wikipedia page on the flavors helps to group similar tastes closer in the vector space. For example, after learning from Wiki, peach, apricot and nectarine became close neigbors.
+- 3 layers of information are added to the corpus to help its understanding of a particular word involving flavor: NWF, Wiki and OR (details have been mentioned above). 
+  - NWF sets the foundation of the model's wine knowledge so that it acknowledges the boundaries of different varieties: for example, Chardonnay and Merlot can never be similar due to their distinct flavors and inherent difference of the grape varieties. However, NWF also sets forward some possible linkage between some categories of wines: for instance, Cabernet Sauvignon and Bordeaux Blend, despite of their different wine varieties, could be similar due to their widely overlapping flavors. 
+  - Wikipedia page on the flavors helps to group similar tastes closer in the vector space. For example, after learning from Wiki, peach, apricot and nectarine became close.
   
   Here's some results (mainly for flavors) after learning from NWF and Wiki:
   
@@ -79,7 +79,7 @@ Please refer to the links above if you run into any problems.
   
   <img src="pics/wine_flavor3.png" align="center" style="height: 250px"/>
   
-  -OR provides specific information on a particular bottle. This is the main subject to learn from in this project. NWF and Wiki add value to this third stage of unsupervised learning.
+  -OR provides specific information on a particular bottle. This is the main subject to learn from. NWF and Wiki set foundations to this third stage of unsupervised learning.
 
 ##### Distance Functions
 - Both Euclidean and Cosine Distance are used. They both provide reasonable results. However, it is worth noting that when less information are presented, cosine delivers a more consistent answer.
@@ -90,11 +90,12 @@ Please refer to the links above if you run into any problems.
 The algorithm works quite well in general. For the examples tested, the algorithm is always able to find a substitute of either the same kind of the wine or a possible different kind that can have similar flavors based on the review (e.g, Zinfindel and Cabernet Sauvignon in the beginning example of this document). The substitute is often from the same region and usually from the same year. The flavors based on review are also similar in that there are many overlapping key words, as expected.
 
 
-### Further Studies
+### Limitations
 ----------------------------------
-- A better criteria to judge the effectiveness of  the algorithm (maybe an A/B testing)
+- A better criteria to judge the effectiveness of  the algorithm (maybe an A/B test)
 - A more recent dataset by running the scrapper
 - The details of different vineyard from Wikipedia might improve the learning process.
+- The word learning could be improved. After enough iterations of learning, the algorithm still tries to put words together just because their similarities in their "forms" instead of their actual meanings: white gravel and white peach in the first word graph, for example.
 
 [//]: # 
 
